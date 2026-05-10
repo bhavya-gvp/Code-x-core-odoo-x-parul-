@@ -100,7 +100,9 @@ function TripsScreen() {
                   <Link href="/itinerary" style={{ flex: 1 }}>
                     <button className="btn-secondary" style={{ width: "100%", fontSize: "12px", padding: "8px" }}>View Itinerary</button>
                   </Link>
-                  <button className="btn-primary" style={{ flex: 1, fontSize: "12px", padding: "8px" }}>Edit Trip</button>
+                  <Link href={`/trips/edit/${trip.id}`} style={{ flex: 1 }}>
+                    <button className="btn-primary" style={{ width: "100%", fontSize: "12px", padding: "8px" }}>Edit Trip</button>
+                  </Link>
                 </div>
               </div>
             </motion.div>

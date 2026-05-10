@@ -3,7 +3,7 @@
  * Centralized HTTP client with JWT token injection and error handling
  */
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001/api";
 
 // Token storage helpers
 const TOKEN_KEY = "traveloop_token";

@@ -71,13 +71,21 @@ export function AppProvider({ children }: { children: ReactNode }) {
     isAuthenticated: false,
     currentTrip: null,
     trips: [],
-    isDarkMode: true,
+    isDarkMode: true,          // default; overridden by localStorage on mount
     isSidebarOpen: false,
     activeTab: "dashboard",
     isAIAssistantOpen: false,
     isLoadingTrips: false,
     authError: null,
   });
+
+  // ── Restore theme from localStorage on first mount ──────
+  useEffect(() => {
+    const saved = localStorage.getItem("traveloop_theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const isDark = saved !== null ? saved === "dark" : prefersDark;
+    setState((prev) => ({ ...prev, isDarkMode: isDark }));
+  }, []);
 
   // ── Restore session on mount ───────────────────────────
   useEffect(() => {
@@ -98,13 +106,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  // ── Dark mode class ────────────────────────────────────
+  // ── Sync dark mode class + persist to localStorage ──────
   useEffect(() => {
     if (state.isDarkMode) {
       document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
     } else {
       document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("light");
     }
+    localStorage.setItem("traveloop_theme", state.isDarkMode ? "dark" : "light");
   }, [state.isDarkMode]);
 
   // ── Load trips after auth ──────────────────────────────
