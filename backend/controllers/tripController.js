@@ -4,6 +4,8 @@ import { uploadToCloudinary } from "../config/cloudinary.js";
 import { tripGenerationService } from "../services/tripGenerationService.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { AppError } from "../utils/AppError.js";
+import { parse as nlpParse } from "../services/naturalLanguageParser.js";
+import { validateTripFeasibility } from "../services/budgetValidationService.js";
 
 // ============================================================
 // @desc    AI-powered trip generation (8-step engine)
@@ -33,6 +35,63 @@ export const generateTrip = asyncHandler(async (req, res) => {
   });
 
   ApiResponse.created(res, result, "✨ AI trip generated successfully!");
+});
+
+// ============================================================
+// @desc    Parse natural language prompt → structured trip intent
+// @route   POST /api/trips/parse
+// @access  Private
+// ============================================================
+export const parseTrip = asyncHandler(async (req, res) => {
+  const { prompt } = req.body;
+  if (!prompt || typeof prompt !== "string" || prompt.trim().length < 3)
+    throw AppError.badRequest("A prompt of at least 3 characters is required.");
+
+  // Step 1 — NLP extraction
+  const intent = nlpParse(prompt.trim());
+
+  // Step 2 — Budget feasibility check (if budget was parsed)
+  let feasibility = null;
+  if (intent.budget && intent.days) {
+    feasibility = validateTripFeasibility({
+      destinations: intent.destinations,
+      budget:       intent.budget,
+      start_date:   intent.start_date || new Date().toISOString().split("T")[0],
+      end_date:     intent.end_date   || new Date(Date.now() + (intent.days||3)*86400000).toISOString().split("T")[0],
+      travelers:    intent.travelers  || 1,
+      mood:         intent.mood,
+      travel_type:  intent.travel_type,
+    });
+  }
+
+  // Step 3 — Smart defaults for missing fields
+  const DEFAULTS = {
+    budget:     { MICRO:2000, LOW:8000, MODERATE:30000, MID:80000, HIGH:200000, LUXURY:500000 }[feasibility?.budgetTierKey || "MODERATE"],
+    mood:       "Relax",
+    travel_type:"Solo Adventure",
+    travelers:  1,
+    days:       3,
+  };
+
+  const filled = {
+    destinations: intent.destinations?.length ? intent.destinations : (feasibility?.recommendedDestinations?.slice(0,2) || []),
+    budget:       intent.budget      ?? DEFAULTS.budget,
+    mood:         intent.mood        ?? DEFAULTS.mood,
+    travel_type:  intent.travel_type ?? DEFAULTS.travel_type,
+    travelers:    intent.travelers   ?? DEFAULTS.travelers,
+    start_date:   intent.start_date,
+    end_date:     intent.end_date,
+    days:         intent.days        ?? DEFAULTS.days,
+    confidence:   intent.confidence,
+    feasibility,
+    raw:          intent.raw,
+  };
+
+  res.json({
+    success: true,
+    message: "Prompt parsed successfully",
+    data: filled,
+  });
 });
 
 // ============================================================

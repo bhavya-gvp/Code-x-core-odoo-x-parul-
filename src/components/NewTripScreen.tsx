@@ -8,6 +8,7 @@ import { useApp } from "@/context/AppContext";
 import { Trip } from "@/types";
 import { AIGenerationScreen } from "./AIGenerationScreen";
 import { GeneratedItineraryView } from "./GeneratedItineraryView";
+import { AIPlannerModal } from "./AIPlannerModal";
 
 const STEPS = [
   { id: 1, title: "Basics", subtitle: "Name your adventure" },
@@ -45,6 +46,7 @@ export function NewTripScreen() {
   const [generating, setGenerating] = useState(false);
   const [generatedResult, setGeneratedResult] = useState<any>(null);
   const [genError, setGenError] = useState<string | null>(null);
+  const [showAIPlanner, setShowAIPlanner] = useState(false);
   const [form, setForm] = useState({
     title: "",
     startDate: "",
@@ -74,6 +76,22 @@ export function NewTripScreen() {
       ...f,
       destinations: f.destinations.includes(name) ? f.destinations.filter((d) => d !== name) : [...f.destinations, name],
     }));
+  };
+
+  // Apply AI-parsed intent to form fields
+  const applyAIIntent = (intent: any) => {
+    setForm(prev => ({
+      ...prev,
+      destinations: intent.destinations?.length ? intent.destinations : prev.destinations,
+      budget:       intent.budget      ? String(intent.budget) : prev.budget,
+      mood:         intent.mood        || prev.mood,
+      travelType:   intent.travel_type || prev.travelType,
+      travelers:    intent.travelers   ? String(intent.travelers) : prev.travelers,
+      startDate:    intent.start_date  || prev.startDate,
+      endDate:      intent.end_date    || prev.endDate,
+    }));
+    // Jump to step 2 (destinations) to let user review
+    setStep(2);
   };
 
   // Show AI generation loading screen
@@ -106,11 +124,47 @@ export function NewTripScreen() {
 
   return (
     <div style={{ padding: "24px", maxWidth: "700px", margin: "0 auto" }} className="page-enter">
-      <div style={{ marginBottom: "32px" }}>
-        <h1 style={{ fontSize: "26px", fontWeight: 900, color: "var(--text-primary)", marginBottom: "6px" }}>
-          ✈️ Create New <span className="gradient-text">Trip</span>
-        </h1>
-        <p style={{ color: "var(--text-secondary)", fontSize: "14px" }}>AI will build your perfect itinerary</p>
+      {/* AI Planner Modal */}
+      <AnimatePresence>
+        {showAIPlanner && (
+          <AIPlannerModal
+            onClose={() => setShowAIPlanner(false)}
+            onApply={applyAIIntent}
+          />
+        )}
+      </AnimatePresence>
+
+      <div style={{ marginBottom: "32px", display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "12px", flexWrap: "wrap" }}>
+        <div>
+          <h1 style={{ fontSize: "26px", fontWeight: 900, color: "var(--text-primary)", marginBottom: "6px" }}>
+            ✈️ Create New <span className="gradient-text">Trip</span>
+          </h1>
+          <p style={{ color: "var(--text-secondary)", fontSize: "14px" }}>AI will build your perfect itinerary</p>
+        </div>
+
+        {/* ✨ Generate With AI button */}
+        <motion.button
+          whileHover={{ scale: 1.04, boxShadow: "0 0 24px rgba(99,102,241,0.5)" }}
+          whileTap={{ scale: 0.96 }}
+          onClick={() => setShowAIPlanner(true)}
+          style={{
+            padding: "10px 18px", borderRadius: "14px", border: "none",
+            background: "linear-gradient(135deg, #6366f1 0%, #06b6d4 100%)",
+            color: "white", fontWeight: 700, fontSize: "13px",
+            cursor: "pointer", display: "flex", alignItems: "center", gap: "7px",
+            boxShadow: "0 4px 20px rgba(99,102,241,0.35)",
+            transition: "all 0.2s",
+          }}
+        >
+          <motion.span
+            animate={{ rotate: [0, 15, -15, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            style={{ display: "flex" }}
+          >
+            <Sparkles size={15} />
+          </motion.span>
+          Generate With AI
+        </motion.button>
       </div>
 
       {/* Step indicator */}

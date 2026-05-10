@@ -125,6 +125,14 @@ export const tripsAPI = {
   deleteTrip: (id: string) => request(`/trips/${id}`, { method: "DELETE" }),
 
   getTripBudget: (id: string) => request(`/trips/${id}/budget`),
+
+  /** Parse natural language prompt → structured intent */
+  parsePrompt: (prompt: string) =>
+    request("/trips/parse", { method: "POST", body: { prompt } }),
+
+  /** Full 8-step AI generation */
+  generateTrip: (data: object) =>
+    request("/trips/generate", { method: "POST", body: data }),
 };
 
 // ============================================================
