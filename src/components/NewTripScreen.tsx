@@ -8,7 +8,7 @@ import { useApp } from "@/context/AppContext";
 import { Trip } from "@/types";
 import { AIGenerationScreen } from "./AIGenerationScreen";
 import { GeneratedItineraryView } from "./GeneratedItineraryView";
-import { AIPlannerModal } from "./AIPlannerModal";
+import { AIChatModal } from "./AIChatModal";
 
 const STEPS = [
   { id: 1, title: "Basics", subtitle: "Name your adventure" },
@@ -127,7 +127,7 @@ export function NewTripScreen() {
       {/* AI Planner Modal */}
       <AnimatePresence>
         {showAIPlanner && (
-          <AIPlannerModal
+          <AIChatModal
             onClose={() => setShowAIPlanner(false)}
             onApply={applyAIIntent}
           />
