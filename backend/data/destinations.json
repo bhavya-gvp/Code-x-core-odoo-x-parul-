@@ -1,0 +1,229 @@
+{
+  "TOKYO": {
+    "id": "tokyo", "name": "Tokyo", "country": "Japan", "region": "asia",
+    "coordinates": { "lat": 35.6762, "lng": 139.6503 },
+    "dailyCosts": { "budget": { "hotel": 2500, "food": 800, "transport": 400, "activities": 300 }, "mid": { "hotel": 6000, "food": 1500, "transport": 800, "activities": 800 }, "luxury": { "hotel": 15000, "food": 3000, "transport": 2000, "activities": 2000 } },
+    "moods": ["adventure", "culture", "foodie", "social", "photography"],
+    "travelStyles": ["backpacker", "couple", "family", "solo", "luxury"],
+    "bestMonths": [3, 4, 10, 11],
+    "schedule": {
+      "morning": ["Visit Senso-ji Temple", "Explore Tsukiji Outer Market", "Walk Yanaka Old Town", "Shinjuku Gyoen stroll"],
+      "afternoon": ["Explore Shibuya crossing", "Harajuku street culture", "TeamLab digital art", "Akihabara electronics district"],
+      "evening": ["Sunset at Tokyo Skytree", "Dinner in Shinjuku", "Ramen in Ikebukuro", "Yakiniku BBQ experience"],
+      "night": ["Omoide Yokocho alley bars", "Roppongi nightlife", "Late-night ramen", "Convenience store crawl"]
+    },
+    "moodActivities": {
+      "relax": ["Shinjuku Gyoen garden", "Yanaka stroll", "Onsen day spa", "Quiet temple visit"],
+      "adventure": ["TeamLab Borderless", "Odaiba waterfront", "Mount Takao hike", "Go-karting in Shibuya"],
+      "culture": ["Senso-ji Temple", "Meiji Shrine", "Edo-Tokyo Museum", "Sumo practice viewing"],
+      "foodie": ["Tsukiji market tour", "Ramen tasting tour", "Sushi making class", "Depachika food hall"],
+      "nature": ["Shinjuku Gyoen", "Yoyogi Park", "Mount Takao", "Hamarikyu Gardens"],
+      "romantic": ["Odaiba sunset", "TeamLab planets", "Rooftop bar", "Couples onsen"]
+    },
+    "nearbyDays": 3, "minDays": 2, "maxDays": 5
+  },
+  "KYOTO": {
+    "id": "kyoto", "name": "Kyoto", "country": "Japan", "region": "asia",
+    "coordinates": { "lat": 35.0116, "lng": 135.7681 },
+    "dailyCosts": { "budget": { "hotel": 2000, "food": 700, "transport": 300, "activities": 200 }, "mid": { "hotel": 5000, "food": 1200, "transport": 600, "activities": 600 }, "luxury": { "hotel": 12000, "food": 2500, "transport": 1500, "activities": 1500 } },
+    "moods": ["relax", "culture", "nature", "romantic", "spiritual"],
+    "travelStyles": ["couple", "solo", "luxury", "family"],
+    "bestMonths": [3, 4, 10, 11],
+    "schedule": {
+      "morning": ["Fushimi Inari sunrise hike", "Arashiyama bamboo grove", "Philosopher's Path walk", "Morning zazen meditation"],
+      "afternoon": ["Gion geisha district", "Nishiki market lunch", "Kinkaku-ji golden pavilion", "Nijo Castle"],
+      "evening": ["Pontocho alley dinner", "Hanamikoji street walk", "Traditional kaiseki dinner", "Lantern-lit temples"],
+      "night": ["Gion Corner show", "Sake bar in Pontocho", "Night walk Hanamikoji"]
+    },
+    "moodActivities": {
+      "relax": ["Philosopher's Path", "Arashiyama bamboo", "Tea ceremony", "Ryokan hot spring"],
+      "adventure": ["Fushimi Inari full hike", "Cycling Arashiyama", "Bamboo rafting Hozu river"],
+      "culture": ["Kinkaku-ji", "Nijo Castle", "Gion geisha district", "Nishiki market"],
+      "nature": ["Arashiyama bamboo", "Philosopher's Path", "Katsura River", "Fushimi Inari hills"],
+      "romantic": ["Pontocho dinner", "Lantern festival walk", "Ryokan stay", "Matcha tea ceremony"],
+      "spiritual": ["Morning zazen", "Fushimi Inari", "Daitoku-ji temple", "Prayer at Kiyomizu-dera"]
+    },
+    "nearbyDays": 2, "minDays": 1, "maxDays": 3
+  },
+  "OSAKA": {
+    "id": "osaka", "name": "Osaka", "country": "Japan", "region": "asia",
+    "coordinates": { "lat": 34.6937, "lng": 135.5023 },
+    "dailyCosts": { "budget": { "hotel": 1800, "food": 900, "transport": 350, "activities": 300 }, "mid": { "hotel": 4500, "food": 1800, "transport": 700, "activities": 700 }, "luxury": { "hotel": 10000, "food": 3500, "transport": 1200, "activities": 1200 } },
+    "moods": ["foodie", "adventure", "social", "culture"],
+    "bestMonths": [3, 4, 10, 11],
+    "schedule": {
+      "morning": ["Dotonbori morning walk", "Kuromon Ichiba market breakfast", "Osaka Castle visit"],
+      "afternoon": ["Shinsekai retro district", "Den Den Town electronics", "Aquarium Kaiyukan"],
+      "evening": ["Dotonbori food crawl", "Takoyaki tasting", "Namba street food"],
+      "night": ["Namba nightlife", "Karaoke in Shinsaibashi", "Kushikatsu dinner"]
+    },
+    "moodActivities": {
+      "foodie": ["Kuromon market", "Takoyaki tour", "Kushikatsu dinner", "Okonomiyaki class"],
+      "adventure": ["USJ theme park", "Umeda Sky Building", "Osaka Bay cruise"],
+      "social": ["Dotonbori street party", "Karaoke Namba", "Rooftop bar Umeda"],
+      "culture": ["Osaka Castle", "Sumiyoshi Taisha shrine", "National Museum of Art"]
+    },
+    "nearbyDays": 1, "minDays": 1, "maxDays": 2
+  },
+  "BALI": {
+    "id": "bali", "name": "Bali", "country": "Indonesia", "region": "asia",
+    "coordinates": { "lat": -8.3405, "lng": 115.0920 },
+    "dailyCosts": { "budget": { "hotel": 1200, "food": 500, "transport": 300, "activities": 400 }, "mid": { "hotel": 3500, "food": 1000, "transport": 600, "activities": 800 }, "luxury": { "hotel": 9000, "food": 2000, "transport": 1500, "activities": 2000 } },
+    "moods": ["relax", "nature", "spiritual", "romantic", "adventure"],
+    "bestMonths": [4, 5, 6, 7, 8, 9],
+    "schedule": {
+      "morning": ["Sunrise at Mount Batur", "Rice terrace walk Tegallalang", "Morning yoga session", "Temple visit at Tanah Lot"],
+      "afternoon": ["Seminyak beach", "Cooking class", "Waterfall hike", "Surf lesson Kuta"],
+      "evening": ["Sunset at Uluwatu temple", "Kecak fire dance", "Ubud market"],
+      "night": ["Beachfront dinner", "Legian street nightlife", "Rooftop sunset cocktails"]
+    },
+    "moodActivities": {
+      "relax": ["Ubud spa retreat", "Rice terrace walk", "Beachfront yoga", "Nusa Dua beach club"],
+      "adventure": ["Mount Batur trek", "Whitewater rafting", "Surf lessons Kuta", "Quad biking Ubud"],
+      "spiritual": ["Tanah Lot temple", "Besakih mother temple", "Tirta Empul holy spring", "Meditation retreat"],
+      "romantic": ["Uluwatu sunset", "Private villa dinner", "Couples spa", "Jimbaran seafood sunset"],
+      "nature": ["Tegallalang rice terraces", "Sacred Monkey Forest", "Gitgit waterfall", "Sekumpul waterfall"]
+    },
+    "nearbyDays": 4, "minDays": 3, "maxDays": 7
+  },
+  "GOA": {
+    "id": "goa", "name": "Goa", "country": "India", "region": "india",
+    "coordinates": { "lat": 15.2993, "lng": 74.1240 },
+    "dailyCosts": { "budget": { "hotel": 800, "food": 400, "transport": 200, "activities": 300 }, "mid": { "hotel": 2500, "food": 800, "transport": 400, "activities": 600 }, "luxury": { "hotel": 7000, "food": 2000, "transport": 800, "activities": 1500 } },
+    "moods": ["relax", "adventure", "social", "romantic"],
+    "bestMonths": [11, 12, 1, 2, 3],
+    "schedule": {
+      "morning": ["Sunrise at Anjuna beach", "Old Goa churches tour", "Spice plantation visit", "Morning kayaking"],
+      "afternoon": ["Chapora Fort", "Calangute beach", "Water sports", "Dudhsagar waterfall day trip"],
+      "evening": ["Sunset cruise Mandovi river", "Night market Anjuna", "Baga beach bonfire"],
+      "night": ["Club Cubana Arpora", "Curlies beach party", "Tito's lane Baga"]
+    },
+    "moodActivities": {
+      "relax": ["Palolem quiet beach", "Yoga retreat Arambol", "Hammock at Patnem", "Ayurveda spa"],
+      "adventure": ["Dudhsagar hike", "Scuba diving", "Parasailing", "Jet ski Baga"],
+      "social": ["Anjuna flea market", "Club Cubana", "Baga beach bars", "Sunburn festival"],
+      "romantic": ["Sunset river cruise", "Candlelit beach dinner", "Heritage walk Old Goa", "Couples spa"]
+    },
+    "nearbyDays": 3, "minDays": 2, "maxDays": 5
+  },
+  "MANALI": {
+    "id": "manali", "name": "Manali", "country": "India", "region": "india",
+    "coordinates": { "lat": 32.2396, "lng": 77.1887 },
+    "dailyCosts": { "budget": { "hotel": 700, "food": 350, "transport": 300, "activities": 400 }, "mid": { "hotel": 2000, "food": 700, "transport": 600, "activities": 800 }, "luxury": { "hotel": 5000, "food": 1500, "transport": 1200, "activities": 1500 } },
+    "moods": ["adventure", "nature", "relax", "romantic"],
+    "bestMonths": [3, 4, 5, 6, 10, 11],
+    "schedule": {
+      "morning": ["Sunrise at Rohtang Pass", "Solang Valley hike", "Hadimba temple", "Old Manali café"],
+      "afternoon": ["Snow activities Rohtang", "River rafting Beas", "Mall Road exploration", "Vashisht hot spring"],
+      "evening": ["Sunset at Naggar Castle", "Bonfire camp", "Local Himachali dinner"],
+      "night": ["Stargazing camp", "Kasol bonfire", "Café culture Old Manali"]
+    },
+    "moodActivities": {
+      "adventure": ["Rohtang Pass snow", "White water rafting", "Paragliding", "Trekking Hampta Pass"],
+      "nature": ["Solang Valley", "Beas Kund trek", "Naggar forest walk", "Chandrakhani Pass"],
+      "relax": ["Old Manali cafés", "Vashisht hot springs", "Riverside picnic", "Himalayan spa"],
+      "romantic": ["Rohtang snow walk", "Bonfire dinner", "Naggar Castle sunset", "Cozy mountain café"]
+    },
+    "nearbyDays": 3, "minDays": 2, "maxDays": 5
+  },
+  "KERALA": {
+    "id": "kerala", "name": "Kerala", "country": "India", "region": "india",
+    "coordinates": { "lat": 10.8505, "lng": 76.2711 },
+    "dailyCosts": { "budget": { "hotel": 900, "food": 400, "transport": 300, "activities": 300 }, "mid": { "hotel": 2800, "food": 900, "transport": 600, "activities": 700 }, "luxury": { "hotel": 7500, "food": 2000, "transport": 1200, "activities": 1500 } },
+    "moods": ["relax", "nature", "spiritual", "romantic"],
+    "bestMonths": [9, 10, 11, 12, 1, 2, 3],
+    "schedule": {
+      "morning": ["Sunrise backwater boat", "Periyar wildlife safari", "Munnar tea garden walk", "Kathakali class"],
+      "afternoon": ["Alleppey houseboat", "Kovalam beach", "Spice market Kochi", "Athirappilly waterfall"],
+      "evening": ["Sunset on houseboat", "Fort Kochi art district", "Kerala Kathakali show"],
+      "night": ["Traditional Kerala feast", "Houseboat overnight stay", "Stargazing Munnar"]
+    },
+    "moodActivities": {
+      "relax": ["Alleppey houseboat", "Kovalam beach", "Ayurveda retreat Varkala", "Tea garden walk Munnar"],
+      "nature": ["Periyar tiger reserve", "Athirappilly waterfall", "Silent Valley", "Munnar Eravikulam"],
+      "spiritual": ["Guruvayur temple", "Sabarimala", "Sree Padmanabhaswamy", "Yoga retreat"],
+      "romantic": ["Alleppey houseboat", "Sunset cruise Vembanad", "Private villa backwaters", "Couples Ayurveda"]
+    },
+    "nearbyDays": 4, "minDays": 3, "maxDays": 7
+  },
+  "RAJASTHAN": {
+    "id": "rajasthan", "name": "Jaipur", "country": "India", "region": "india",
+    "coordinates": { "lat": 26.9124, "lng": 75.7873 },
+    "dailyCosts": { "budget": { "hotel": 700, "food": 350, "transport": 250, "activities": 300 }, "mid": { "hotel": 2500, "food": 800, "transport": 500, "activities": 700 }, "luxury": { "hotel": 8000, "food": 2000, "transport": 1000, "activities": 1500 } },
+    "moods": ["culture", "adventure", "photography", "romantic"],
+    "bestMonths": [10, 11, 12, 1, 2, 3],
+    "schedule": {
+      "morning": ["Sunrise Amber Fort elephant ride", "Hawa Mahal dawn photography", "Nahargarh sunrise"],
+      "afternoon": ["City Palace tour", "Jantar Mantar observatory", "Johari Bazaar shopping", "Carpet weaving village"],
+      "evening": ["Chokhi Dhani cultural village", "Camel safari desert", "Nahargarh sunset"],
+      "night": ["Traditional Rajasthani dinner", "Puppet show", "Rooftop dining Pink City"]
+    },
+    "moodActivities": {
+      "culture": ["Amber Fort", "City Palace", "Jantar Mantar", "Block printing workshop"],
+      "adventure": ["Camel safari", "Hot air balloon", "Jeep safari Ranthambore"],
+      "photography": ["Hawa Mahal sunrise", "Mehrangarh Fort", "Blue City Jodhpur", "Pushkar ghats"],
+      "romantic": ["Heritage hotel rooftop", "Sunset camel ride", "Private fort dinner", "Lake Pichola boat"]
+    },
+    "nearbyDays": 3, "minDays": 2, "maxDays": 5
+  },
+  "BANGKOK": {
+    "id": "bangkok", "name": "Bangkok", "country": "Thailand", "region": "asia",
+    "coordinates": { "lat": 13.7563, "lng": 100.5018 },
+    "dailyCosts": { "budget": { "hotel": 1000, "food": 400, "transport": 200, "activities": 300 }, "mid": { "hotel": 3000, "food": 800, "transport": 500, "activities": 700 }, "luxury": { "hotel": 8000, "food": 2000, "transport": 1000, "activities": 1500 } },
+    "moods": ["foodie", "adventure", "social", "culture"],
+    "bestMonths": [11, 12, 1, 2, 3, 4],
+    "schedule": {
+      "morning": ["Wat Phra Kaew Grand Palace", "Floating market Damnoen", "Chatuchak weekend market", "Chao Phraya boat"],
+      "afternoon": ["Wat Pho reclining Buddha", "Tuk-tuk temple tour", "Lumphini Park", "Jim Thompson House"],
+      "evening": ["Asiatique riverfront", "Street food Khao San Road", "Sky bar Lebua"],
+      "night": ["Silom nightlife", "Muay Thai fight", "Khao San party street", "Rooftop bar"]
+    },
+    "moodActivities": {
+      "foodie": ["Floating market", "Street food tour", "Thai cooking class", "Chatuchak market"],
+      "adventure": ["Muay Thai class", "Zip-line Chiang Mai day trip", "ATV jungle"],
+      "social": ["Khao San Road", "Sky bar", "Asiatique riverside", "Silom night market"],
+      "culture": ["Grand Palace", "Wat Arun", "Jim Thompson House", "Erawan Shrine"]
+    },
+    "nearbyDays": 3, "minDays": 2, "maxDays": 4
+  },
+  "PARIS": {
+    "id": "paris", "name": "Paris", "country": "France", "region": "europe",
+    "coordinates": { "lat": 48.8566, "lng": 2.3522 },
+    "dailyCosts": { "budget": { "hotel": 4500, "food": 1500, "transport": 600, "activities": 800 }, "mid": { "hotel": 10000, "food": 3000, "transport": 1000, "activities": 1500 }, "luxury": { "hotel": 25000, "food": 7000, "transport": 2500, "activities": 4000 } },
+    "moods": ["romantic", "culture", "foodie", "photography"],
+    "bestMonths": [4, 5, 6, 9, 10],
+    "schedule": {
+      "morning": ["Sunrise at Eiffel Tower", "Louvre Museum morning", "Montmartre village walk", "Sacré-Cœur sunrise"],
+      "afternoon": ["Musée d'Orsay", "Seine river cruise", "Marais district", "Versailles day trip"],
+      "evening": ["Sunset Eiffel Tower", "Dinner Montparnasse", "Moulin Rouge show"],
+      "night": ["Wine bar St-Germain", "Eiffel light show midnight", "Champs-Élysées walk"]
+    },
+    "moodActivities": {
+      "romantic": ["Eiffel sunset", "Seine dinner cruise", "Montmartre artist walk", "Champagne Versailles"],
+      "culture": ["Louvre full day", "Musée d'Orsay", "Pompidou Centre", "Père Lachaise"],
+      "foodie": ["Rue Cler market", "Patisserie tour", "Le Marais bistros", "French cooking class"],
+      "photography": ["Montmartre dawn", "Palais Royal arches", "Pont des Arts", "Le Marais street art"]
+    },
+    "nearbyDays": 4, "minDays": 3, "maxDays": 6
+  },
+  "DUBAI": {
+    "id": "dubai", "name": "Dubai", "country": "UAE", "region": "middle-east",
+    "coordinates": { "lat": 25.2048, "lng": 55.2708 },
+    "dailyCosts": { "budget": { "hotel": 3500, "food": 1200, "transport": 500, "activities": 800 }, "mid": { "hotel": 8000, "food": 2500, "transport": 1000, "activities": 2000 }, "luxury": { "hotel": 20000, "food": 6000, "transport": 3000, "activities": 5000 } },
+    "moods": ["adventure", "luxury", "social", "culture"],
+    "bestMonths": [11, 12, 1, 2, 3, 4],
+    "schedule": {
+      "morning": ["Burj Khalifa sunrise", "Gold Souk Al Fahidi", "Desert safari briefing", "Dubai Frame"],
+      "afternoon": ["Dubai Mall", "Miracle Garden", "JBR beach", "Aquaventure waterpark"],
+      "evening": ["Dubai Fountain show", "Sunset desert safari", "Dhow cruise Marina"],
+      "night": ["Burj Al Arab dinner", "Bluewaters Island", "Ain Dubai Ferris wheel"]
+    },
+    "moodActivities": {
+      "adventure": ["Desert dune bashing", "Skydiving Palm", "Zip line Jebel Jais", "Indoor skiing Mall of Emirates"],
+      "luxury": ["Burj Al Arab brunch", "Yacht charter", "Gold Souk shopping", "Atlantis waterpark VIP"],
+      "social": ["JBR beach clubs", "Marina nightlife", "Rooftop bars", "Dubai Frame"],
+      "culture": ["Al Fahidi historic district", "Dubai Museum", "Friday Market Masafi", "Spice Souk"]
+    },
+    "nearbyDays": 3, "minDays": 2, "maxDays": 5
+  }
+}
