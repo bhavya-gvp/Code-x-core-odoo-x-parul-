@@ -60,7 +60,29 @@ function TripsScreen() {
               style={{ cursor: "pointer" }}
             >
               <div style={{ height: "180px", overflow: "hidden", position: "relative" }}>
-                <img src={trip.coverImage} alt={trip.title} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s" }} />
+                {trip.coverImage ? (
+                  <img
+                    src={trip.coverImage}
+                    alt={trip.title}
+                    style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s" }}
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      target.style.display = "none";
+                      const parent = target.parentElement!;
+                      if (!parent.querySelector(".img-fallback")) {
+                        const fb = document.createElement("div");
+                        fb.className = "img-fallback";
+                        fb.style.cssText = `width:100%;height:100%;background:linear-gradient(135deg,#6366f1,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:52px;`;
+                        fb.textContent = trip.mood === "Adventure Rush" ? "⚡" : trip.mood === "Nature Detox" ? "🌿" : trip.mood === "Romantic Escape" ? "💕" : "🌴";
+                        parent.insertBefore(fb, target);
+                      }
+                    }}
+                  />
+                ) : (
+                  <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg,#6366f1 0%,#06b6d4 100%)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "52px" }}>
+                    {trip.mood === "Adventure Rush" ? "⚡" : trip.mood === "Nature Detox" ? "🌿" : trip.mood === "Romantic Escape" ? "💕" : "🌴"}
+                  </div>
+                )}
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.7), transparent)" }} />
                 <div style={{ position: "absolute", top: "12px", left: "12px" }}>
                   <span className="badge" style={{ background: statusColors[trip.status] + "cc", color: "white", borderColor: "transparent", textTransform: "capitalize" }}>
