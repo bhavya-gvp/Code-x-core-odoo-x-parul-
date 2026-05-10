@@ -1,10 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { TrendingUp, MapPin, Wallet, Calendar, Star, ArrowRight, Sparkles, Wind, Droplets, Eye, Clock } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { TrendingUp, MapPin, Wallet, Calendar, Star, ArrowRight, Sparkles, Wind, Droplets, Eye, Clock, DollarSign } from "lucide-react";
 import { MOCK_DESTINATIONS, MOCK_TRIPS, AI_RECOMMENDATIONS, MOCK_USER, BUDGET_CATEGORIES, MOODS } from "@/data/mock";
 import { formatCurrency } from "@/lib/utils";
 import { useState } from "react";
+import { useApp } from "@/context/AppContext";
+import Link from "next/link";
+import { CurrencyConverter } from "./CurrencyConverter";
 
 const fadeUp = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } };
 const stagger = { show: { transition: { staggerChildren: 0.07 } } };
@@ -45,29 +48,30 @@ function WeatherWidget({ city, temp, condition, humidity, wind }: { city: string
 }
 
 export function Dashboard() {
-  const [activeMood, setActiveMood] = useState<string | null>(null);
+  const { user, trips, isLoadingTrips } = useApp();
+  const [activeMood, setActiveMood]       = useState<string | null>(null);
+  const [showCurrency, setShowCurrency]   = useState(false);
   const totalBudget = BUDGET_CATEGORIES.reduce((s, c) => s + c.allocated, 0);
-  const totalSpent = BUDGET_CATEGORIES.reduce((s, c) => s + c.spent, 0);
+  const totalSpent  = BUDGET_CATEGORIES.reduce((s, c) => s + c.spent, 0);
+
+  // Dynamic greeting based on time of day
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+  const greetingEmoji = hour < 12 ? "🌅" : hour < 17 ? "☀️" : "🌙";
+  const firstName = user?.name?.split(" ")[0] || "Traveler";
+
+  const upcomingTrips = trips.filter(t => t.status === "planning" || t.status === "upcoming");
+  const completedTrips = trips.filter(t => t.status === "completed");
 
   return (
     <div style={{ padding: "24px", maxWidth: "1400px", margin: "0 auto" }} className="page-enter">
+      <AnimatePresence>{showCurrency && <CurrencyConverter onClose={() => setShowCurrency(false)} />}</AnimatePresence>
+
       {/* Welcome hero */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        style={{
-          borderRadius: "24px",
-          padding: "32px",
-          background: "linear-gradient(135deg, #0f1629 0%, #1a1040 50%, #0a2040 100%)",
-          border: "1px solid rgba(99,102,241,0.2)",
-          marginBottom: "28px",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
+      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
+        style={{ borderRadius: "24px", padding: "32px", background: "linear-gradient(135deg, #0f1629 0%, #1a1040 50%, #0a2040 100%)", border: "1px solid rgba(99,102,241,0.2)", marginBottom: "28px", position: "relative", overflow: "hidden" }}>
         <div className="blob blob-1" style={{ width: "300px", height: "300px", top: "-80px", right: "-40px", opacity: 0.15 }} />
         <div className="blob blob-2" style={{ width: "200px", height: "200px", bottom: "-60px", left: "30%", opacity: 0.1 }} />
-        
         <div style={{ position: "relative", zIndex: 1 }}>
           <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: "20px" }}>
             <div>
@@ -76,22 +80,27 @@ export function Dashboard() {
                 <span style={{ fontSize: "11px", color: "#a5b4fc", fontWeight: 600 }}>AI-Powered Companion</span>
               </div>
               <h1 style={{ fontSize: "clamp(22px, 3vw, 32px)", fontWeight: 900, color: "white", marginBottom: "8px" }}>
-                Good morning, Arjun! 🌅
+                {greeting}, {firstName}! {greetingEmoji}
               </h1>
               <p style={{ color: "#94a3b8", fontSize: "14px", maxWidth: "480px", lineHeight: 1.6 }}>
-                You have <strong style={{ color: "#a5b4fc" }}>1 upcoming trip</strong> in 23 days.
-                Your AI recommends adding Arashiyama Bamboo Grove to your Kyoto day.
+                {isLoadingTrips ? "Loading your trips…" : upcomingTrips.length > 0
+                  ? <><strong style={{ color: "#a5b4fc" }}>{upcomingTrips.length} upcoming trip{upcomingTrips.length > 1 ? "s" : ""}</strong> ready to explore. Your AI planner is ready.</>  
+                  : "Start planning your next adventure with AI — just type a destination."}
               </p>
             </div>
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-              <motion.a href="/trips/new" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <button className="btn-primary" style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px" }}>
+              <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} onClick={() => setShowCurrency(true)}
+                style={{ padding: "9px 14px", borderRadius: "12px", background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", color: "white", cursor: "pointer", fontSize: "12px", display: "flex", alignItems: "center", gap: "5px", fontWeight: 600 }}>
+                <DollarSign size={13} /> Currency
+              </motion.button>
+              <Link href="/trips/new">
+                <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="btn-primary" style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px" }}>
                   <Sparkles size={14} /> Plan New Trip
-                </button>
-              </motion.a>
-              <motion.a href="/discover" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <button className="btn-secondary" style={{ fontSize: "13px" }}>Explore Destinations</button>
-              </motion.a>
+                </motion.button>
+              </Link>
+              <Link href="/discover">
+                <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="btn-secondary" style={{ fontSize: "13px" }}>Explore</motion.button>
+              </Link>
             </div>
           </div>
         </div>

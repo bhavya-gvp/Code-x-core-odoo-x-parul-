@@ -2,9 +2,11 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { Search, Filter, MapPin, Star, Thermometer, Users, Shield, TrendingUp, Heart, X } from "lucide-react";
+import { Search, MapPin, Star, Users, Shield, TrendingUp, Heart, X } from "lucide-react";
 import { MOCK_DESTINATIONS } from "@/data/mock";
 import { Destination } from "@/types";
+import Link from "next/link";
+import { useToast } from "@/components/ui/Toast";
 
 const REGIONS = ["All", "Asia", "Europe", "Africa", "South America", "North America", "Oceania"];
 const CROWD_LEVELS = ["All", "low", "moderate", "high"];
@@ -84,64 +86,55 @@ function CityCard({ dest, onSelect }: { dest: Destination; onSelect: (d: Destina
 }
 
 function DestinationModal({ dest, onClose }: { dest: Destination; onClose: () => void }) {
+  const { success } = useToast();
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.7)", zIndex: 1000, display: "flex", alignItems: "flex-end", justifyContent: "center", padding: "20px" }}
-      onClick={onClose}
-    >
-      <motion.div
-        initial={{ y: 100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: 100, opacity: 0 }}
-        onClick={(e) => e.stopPropagation()}
-        style={{ width: "100%", maxWidth: "600px", borderRadius: "24px", overflow: "hidden", background: "var(--bg-secondary)", maxHeight: "85vh", overflowY: "auto" }}
-      >
+      onClick={onClose}>
+      <motion.div initial={{ y: 100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 100, opacity: 0 }}
+        onClick={e => e.stopPropagation()}
+        style={{ width: "100%", maxWidth: "600px", borderRadius: "24px", overflow: "hidden", background: "var(--bg-secondary)", maxHeight: "85vh", overflowY: "auto" }}>
         <div style={{ height: "240px", position: "relative" }}>
-          <img src={dest.image} alt={dest.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          <img src={dest.image} alt={dest.name} style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            onError={e => { (e.currentTarget.parentElement as HTMLElement).style.background = "linear-gradient(135deg,#6366f1,#06b6d4)"; e.currentTarget.style.display="none"; }} />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.6), transparent)" }} />
-          <button onClick={onClose} style={{ position: "absolute", top: "16px", right: "16px", background: "rgba(0,0,0,0.5)", border: "none", borderRadius: "50%", width: "36px", height: "36px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "white" }}>
-            <X size={18} />
-          </button>
+          <button onClick={onClose} style={{ position: "absolute", top: "16px", right: "16px", background: "rgba(0,0,0,0.5)", border: "none", borderRadius: "50%", width: "36px", height: "36px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "white" }}><X size={18} /></button>
           <div style={{ position: "absolute", bottom: "16px", left: "20px" }}>
             <h2 style={{ color: "white", fontSize: "28px", fontWeight: 900 }}>{dest.name}</h2>
             <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "14px" }}>{dest.country} · {dest.region}</p>
           </div>
         </div>
-
         <div style={{ padding: "24px" }}>
           <p style={{ color: "var(--text-secondary)", fontSize: "14px", lineHeight: 1.7, marginBottom: "20px" }}>{dest.description}</p>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px", marginBottom: "20px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "12px", marginBottom: "20px" }}>
             {[
-              { label: "Rating", value: `⭐ ${dest.rating}`, color: "#f59e0b" },
-              { label: "Temperature", value: `🌡 ${dest.temperature}°C`, color: "#06b6d4" },
-              { label: "Safety", value: `🛡 ${dest.safetyScore}/100`, color: "#22c55e" },
-              { label: "Cost/day", value: `₹${dest.costIndex}k est.`, color: "#a855f7" },
-              { label: "Best Season", value: `🌤 ${dest.bestSeason}`, color: "#6366f1" },
-              { label: "Crowd Level", value: `👥 ${dest.crowdLevel}`, color: "#ef4444" },
-            ].map((stat) => (
+              { label: "Rating", value: `⭐ ${dest.rating}` },
+              { label: "Temperature", value: `🌡 ${dest.temperature}°C` },
+              { label: "Safety", value: `🛡 ${dest.safetyScore}/100` },
+              { label: "Cost/day", value: `₹${dest.costIndex}k est.` },
+              { label: "Best Season", value: `🌤 ${dest.bestSeason}` },
+              { label: "Crowd Level", value: `👥 ${dest.crowdLevel}` },
+            ].map(stat => (
               <div key={stat.label} style={{ padding: "12px", borderRadius: "10px", background: "var(--bg-primary)", border: "1px solid var(--border)", textAlign: "center" }}>
                 <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--text-primary)", marginBottom: "2px" }}>{stat.value}</div>
                 <div style={{ fontSize: "11px", color: "var(--text-muted)" }}>{stat.label}</div>
               </div>
             ))}
           </div>
-
           <div style={{ marginBottom: "20px" }}>
             <h4 style={{ fontSize: "14px", fontWeight: 700, color: "var(--text-primary)", marginBottom: "10px" }}>Top Activities</h4>
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-              {dest.activities.map((a) => (
-                <span key={a} className="tag">{a}</span>
-              ))}
+              {dest.activities.map(a => <span key={a} className="tag">{a}</span>)}
             </div>
           </div>
-
           <div style={{ display: "flex", gap: "8px" }}>
-            <button className="btn-primary" style={{ flex: 1, fontSize: "14px" }}>Plan Trip Here</button>
-            <button className="btn-secondary" style={{ flex: 1, fontSize: "14px" }}>Add to Wishlist</button>
+            <Link href={`/trips/new?destination=${encodeURIComponent(dest.name)}`} style={{ flex: 1 }} onClick={onClose}>
+              <button className="btn-primary" style={{ width: "100%", fontSize: "14px" }}>✈️ Plan Trip Here</button>
+            </Link>
+            <button className="btn-secondary" style={{ flex: 1, fontSize: "14px" }}
+              onClick={() => { success(`${dest.name} added to wishlist! ❤️`); onClose(); }}>
+              🔖 Add to Wishlist
+            </button>
           </div>
         </div>
       </motion.div>

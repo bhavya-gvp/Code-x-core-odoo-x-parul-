@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AppProvider } from "@/context/AppContext";
+import { ToastProvider } from "@/components/ui/Toast";
 
 export const metadata: Metadata = {
   title: "Traveloop AI — Intelligent Travel Operating System",
@@ -30,7 +31,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <AppProvider>
-          {children}
+          <ToastProvider>
+            {children}
+          </ToastProvider>
         </AppProvider>
       </body>
     </html>

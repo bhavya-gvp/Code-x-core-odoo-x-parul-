@@ -2,21 +2,25 @@
 import { useApp } from "@/context/AppContext";
 import { Sidebar, BottomNav, TopBar } from "@/components/Navigation";
 import { AIAssistant } from "@/components/AIAssistant";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { AuthScreen } from "@/components/AuthScreen";
 import { MOCK_TRIPS, MOODS } from "@/data/mock";
 import { formatCurrency } from "@/lib/utils";
-import { Calendar, Wallet, Plus } from "lucide-react";
+import { Calendar, Wallet, Plus, QrCode } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+import { QRShareModal } from "@/components/QRShareModal";
 
 function TripsScreen() {
   const { trips } = useApp();
   const allTrips = [...trips, ...MOCK_TRIPS].filter((t, i, arr) => arr.findIndex(x => x.id === t.id) === i);
+  const [qrTrip, setQrTrip] = useState<{id:string;title:string}|null>(null);
 
   const statusColors: Record<string, string> = { planning: "#f59e0b", upcoming: "#6366f1", completed: "#22c55e", ongoing: "#06b6d4" };
 
   return (
     <div style={{ padding: "24px", maxWidth: "1200px", margin: "0 auto" }} className="page-enter">
+      <AnimatePresence>{qrTrip && <QRShareModal tripId={qrTrip.id} tripTitle={qrTrip.title} onClose={() => setQrTrip(null)} />}</AnimatePresence>
       <div style={{ marginBottom: "28px", display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
         <div>
           <h1 style={{ fontSize: "28px", fontWeight: 900, color: "var(--text-primary)", marginBottom: "6px" }}>
@@ -125,6 +129,12 @@ function TripsScreen() {
                   <Link href={`/trips/edit/${trip.id}`} style={{ flex: 1 }}>
                     <button className="btn-primary" style={{ width: "100%", fontSize: "12px", padding: "8px" }}>Edit Trip</button>
                   </Link>
+                  <motion.button whileTap={{ scale: 0.9 }}
+                    onClick={() => setQrTrip({ id: String(trip.id), title: trip.title })}
+                    title="Share via QR"
+                    style={{ padding: "8px 10px", borderRadius: "10px", border: "1px solid var(--border)", background: "var(--bg-primary)", cursor: "pointer", display: "flex", alignItems: "center", flexShrink: 0 }}>
+                    <QrCode size={14} color="var(--text-muted)" />
+                  </motion.button>
                 </div>
               </div>
             </motion.div>
